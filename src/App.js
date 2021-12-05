@@ -13,11 +13,11 @@ import {
 import React, {useState} from 'react';
 
 import BiorythmCard from './components/BiorhythmCard';
-
+import {useLocalStorage} from './hooks.js';
 function App() {
-  const [name, setName] = useState('')
-  const [selectedDate, setSelectedDate] = useState('2021-12-05')
-  const targetDate = new Date().toISOString()
+  const [name, setName] = useLocalStorage('name','')
+  const [birthDate, setBirthDate] = useLocalStorage('birthDate','')
+  const [targetDate, setTargetDate] = useLocalStorage('targetDate',new Date().toISOString())
   return (
     <IonApp>
       <IonHeader>
@@ -25,23 +25,27 @@ function App() {
           <IonTitle>Biorythm</IonTitle>
         </IonToolbar>
       </IonHeader>
-      <IonContent className="ion-padding">
+      <IonContent>
       {/* value={text} placeholder="Enter Input" onIonChange={e => setText(e.detail.value!)} clearInput> */}
+      {
+         birthDate &&
+         <BiorythmCard targetDate = {(targetDate)} birthDate = {birthDate}/>
+        }
        <IonItem>
          <IonLabel position="stacked">Name:</IonLabel>
           <IonInput value={name} type="text" placeholder="Your name"
           onIonChange={(e)=> setName(e.detail.value)}/>
        </IonItem>
        <IonItem>
-         <IonLabel position="stacked">Birthday</IonLabel>
-         <IonDatetime displayFormat="YYYY-MM-DD" value={selectedDate} 
-         onIonChange={e => setSelectedDate(e.detail.value)}></IonDatetime>
+         <IonLabel position="fixed">Birthday</IonLabel>
+         <IonDatetime displayFormat="YYYY-MM-DD" value={birthDate} 
+         onIonChange={e => setBirthDate(e.detail.value)}></IonDatetime>
        </IonItem>
-
-
-        <BiorythmCard targetDate = {(targetDate)}/>
-       
-
+       <IonItem>
+         <IonLabel position="fixed">Target Day</IonLabel>
+         <IonDatetime displayFormat="YYYY-MM-DD" value={targetDate} 
+         onIonChange={e => setTargetDate(e.detail.value)}></IonDatetime>
+       </IonItem>
 
       </IonContent>
     </IonApp>
