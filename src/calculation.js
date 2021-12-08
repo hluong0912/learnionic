@@ -15,3 +15,14 @@ export function calculationBiorhythms(birthDate, targetDate){
     }
 
 }
+
+
+export function calculationBiorhythmSeries(birthDate, startDate,size){
+    const series = []
+    const startDay = dayjs(startDate).startOf("day")
+    for(let day = 1; day < size; day++){
+        const targetDate = startDay.add(day, "days").toISOString()
+        series.push(calculationBiorhythms(birthDate,targetDate))
+    }
+    return series;
+}

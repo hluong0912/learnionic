@@ -14,6 +14,7 @@ import React, {useState} from 'react';
 
 import BiorythmCard from './components/BiorhythmCard';
 import {useLocalStorage} from './hooks.js';
+import './index.css';
 function App() {
   const [name, setName] = useLocalStorage('name','')
   const [birthDate, setBirthDate] = useLocalStorage('birthDate','')
